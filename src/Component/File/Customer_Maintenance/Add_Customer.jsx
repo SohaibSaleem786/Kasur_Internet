@@ -182,7 +182,7 @@ function Add_Customer() {
       email: Email.current.value,
       collector: value.collectorr,
       netfee: NetFee.current.value,
-      cablefee: CableFee.current.value,
+      cablefee: 0,
       residance: value.residancee,
       pakge: Package.current.value,
       speed: Speed.current.value,

@@ -508,20 +508,7 @@ function Update_Customer() {
                         onKeyDown={(e) => handleEnterKeyPress(CableFee, e)}
                       />
                     </div>
-                    <div className="col-sm-2 company-field">Cable Fee:</div>
-                    <div className="col-sm-4  input-company">
-                      <Form.Control
-                        type="text"
-                        id="custcblfee"
-                        placeholder="CableFee"
-                        name="custcblfee"
-                        className="form-control-company"
-                        ref={CableFee}
-                        value={user.custcblfee}
-                        onChange={handleInputChange}
-                        onKeyDown={(e) => handleEnterKeyPress(Package, e)}
-                      />
-                    </div>
+                   
                   </div>
                   <div className="row">
                     <div className="col-sm-2 company-field">Package:</div>

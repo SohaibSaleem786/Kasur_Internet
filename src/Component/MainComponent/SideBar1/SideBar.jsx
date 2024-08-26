@@ -108,8 +108,8 @@ const SideBar1 = () => {
   // }
 
   const customLinks = {
-    // "1-01-00": "/Get_Area",
-    "1-01-00": "/Get_Userr",
+    "1-01-00": "/Get_Area",
+    // "1-01-00": "/Get_Userr",
     "1-02-00": "/Get_Customer",
     "1-03-00": "/Get_Collector",
     "1-04-00": "/Get_Account",

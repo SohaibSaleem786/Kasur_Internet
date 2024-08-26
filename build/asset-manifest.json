@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/kasurinternet/static/css/main.8d7a67a0.css",
+    "main.js": "/kasurinternet/static/js/main.65452c10.js",
+    "static/js/498.c0385572.chunk.js": "/kasurinternet/static/js/498.c0385572.chunk.js",
+    "static/js/703.4917bfd6.chunk.js": "/kasurinternet/static/js/703.4917bfd6.chunk.js",
+    "static/js/513.c93c3959.chunk.js": "/kasurinternet/static/js/513.c93c3959.chunk.js",
+    "static/media/image1.jpeg": "/kasurinternet/static/media/image1.041fad63a45bd19bc5a4.jpeg",
+    "static/media/image3.jpeg": "/kasurinternet/static/media/image3.442f653bf6bfc4f33d0a.jpeg",
+    "static/media/metal.jpg": "/kasurinternet/static/media/metal.49f05fd5f339fd3400e9.jpg",
+    "static/media/homeapp.png": "/kasurinternet/static/media/homeapp.8b00aeb68e5300374ea7.png",
+    "static/media/image2.jpeg": "/kasurinternet/static/media/image2.433e982dac0921c7b922.jpeg",
+    "static/media/itc.png": "/kasurinternet/static/media/itc.55632e5697193a056e52.png",
+    "static/media/technician.png": "/kasurinternet/static/media/technician.28d83e0017cb5ba0e75c.png",
+    "static/media/keys.png": "/kasurinternet/static/media/keys.c87af3db0ab80c85a3d9.png",
+    "static/media/Crystal_info.jpeg": "/kasurinternet/static/media/Crystal_info.9a2f513e9bfee01f33cd.jpeg",
+    "static/media/UMAIR.png": "/kasurinternet/static/media/UMAIR.080a937ed681491ecfff.png",
+    "static/media/grmetal.png": "/kasurinternet/static/media/grmetal.78ca97f91a87058a280e.png",
+    "static/media/bin.png": "/kasurinternet/static/media/bin.c4f0af28c10a19fbeee1.png",
+    "static/media/logowithname.jpeg": "/kasurinternet/static/media/logowithname.e831a235b42a41bf1b0c.jpeg",
+    "index.html": "/kasurinternet/index.html",
+    "main.8d7a67a0.css.map": "/kasurinternet/static/css/main.8d7a67a0.css.map",
+    "main.65452c10.js.map": "/kasurinternet/static/js/main.65452c10.js.map",
+    "498.c0385572.chunk.js.map": "/kasurinternet/static/js/498.c0385572.chunk.js.map",
+    "703.4917bfd6.chunk.js.map": "/kasurinternet/static/js/703.4917bfd6.chunk.js.map",
+    "513.c93c3959.chunk.js.map": "/kasurinternet/static/js/513.c93c3959.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8d7a67a0.css",
+    "static/js/main.65452c10.js"
+  ]
+}

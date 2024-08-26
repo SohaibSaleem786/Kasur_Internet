@@ -1,0 +1,150 @@
+.form-control-type {
+  background-color: rgb(248, 248, 248) !important;
+  height: 24px !important;
+  box-shadow: none !important;
+  border-radius: 0px !important;
+  margin-bottom: 4px;
+  margin-left: -10px !important;
+}
+
+.btn-primary-type {
+  margin-right: 2px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  margin-top: 1%;
+  font-size: 11px;
+  width: 85px;
+  height: 30px;
+  font-weight: bold;
+  /* background-color: #1f2670; */
+  background-color: rgb(204, 204, 204);
+  color: black;
+  padding: 10px 20px;
+  border-radius: 0px;
+  /* box-shadow: 0px 0px 8px #0080ff; */
+  transition: background-color 0.8s;
+}
+
+.label-type {
+  display: flex;
+  align-items: start;
+  justify-content: flex-end;
+}
+.form-type-container {
+  background-color: rgb(247, 247, 247);
+  border-radius: 5px;
+  padding: 0px;
+  /* box-shadow: 0px 0px 20px #113f8f; */
+  width: 100%;
+  max-width: 580px;
+  /* height: "10vh"; */
+  margin: "20px 0";
+  font-size: 12px;
+  border: 1px solid black;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.Type-table {
+  margin-top: 1%;
+  margin-left: 30%;
+  margin-right: 30%;
+  max-width: 40%;
+  height: 77vh;
+  border: 1px solid black;
+  background-color: white;
+}
+/* .Type-table {
+  margin-left: 30%;
+  margin-right: 30%;
+  max-width: 40%;
+  padding: 15px;
+  border: 1px solid gray;
+  background-color: white;
+} */
+.scroll {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.Picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3%;
+}
+
+/* Small screen styles */
+@media (max-width: 767px) {
+  .input-type {
+    margin-left: 6%;
+  }
+  .Category {
+    margin-left: 5%;
+    margin-right: 5%;
+    max-width: 90%;
+  }
+}
+
+/* Large screen styles */
+@media (min-width: 768px) {
+  .Category {
+    margin-left: 30%;
+    margin-right: 30%;
+    max-width: 40%;
+  }
+}
+
+@media screen and (max-width: 458px) {
+  .Type-table .search {
+    margin-left: 3px;
+  }
+  .form-type-container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 20px #113f8f;
+    width: 100%;
+    max-width: 500px;
+    margin: "20px 0";
+    font-size: 12px;
+    border: 1px solid black;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .form-container {
+    margin-top: 5px;
+  }
+  .form-type-container .scroll {
+    overflow-y: auto;
+    height: 220px;
+  }
+
+  .label-type {
+    color: black;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 10px;
+  }
+  .Type-table {
+    margin-left: 2%;
+    margin-right: 2%;
+    max-width: 96%;
+    padding: 15px;
+    border: 1px solid black;
+    background-color: white;
+  }
+  .input {
+    margin-left: 46%;
+  }
+  .Picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30%;
+  }
+}

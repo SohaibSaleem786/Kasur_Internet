@@ -1,0 +1,266 @@
+.label-login {
+  font-size: 11px;
+  text-align: right;
+  font-weight: bold;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.form-control {
+  background-color: rgb(239, 247, 255);
+  border: 1px solid rgb(153, 153, 153);
+  height: 24px;
+  font-size: 11px;
+  border-radius: 5px;
+  /* border-radius: 50px; */
+
+  box-shadow: inset 4px 4px 4px #dde2e7, inset -4px -4px 4px white;
+}
+.form-control::placeholder {
+  color: rgb(156, 154, 154);
+}
+
+.btn {
+  border-radius: 100%;
+}
+
+.btn-primary-itc {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  margin-top: 1%;
+  margin-left: 6%;
+  font-size: 11px;
+  width: 85px;
+  height: 30px;
+  font-weight: bold;
+  background-color: rgb(204, 204, 204);
+  /* color: #31335a; */
+  color: black;
+  border: "none";
+  padding: 10px 20px;
+  border-radius: 0px;
+}
+
+.first-row {
+  height: 21vh;
+}
+.company-logo {
+  align-items: end;
+  display: flex;
+  justify-content: end;
+}
+.itc-logo {
+  align-items: center;
+  display: flex;
+  justify-content: start;
+}
+.company-name {
+  margin-top: 3%;
+  align-items: center;
+  display: flex;
+  justify-content: start;
+  font-size: 27px;
+}
+.itc-name {
+  font-weight: bold;
+  align-items: center;
+  display: flex;
+  color: #1f2670;
+  justify-content: start;
+  font-size: 25px;
+}
+.umair-image{
+  height: 20vh;
+  width: 20vh;
+}
+.itc-data {
+  align-items: center;
+  display: flex;
+  justify-content: start;
+  font-size: 13px;
+  color: rgb(90, 90, 90);
+}
+
+.company-dataa {
+  align-items: end;
+  display: flex;
+  justify-content: start;
+  font-size: 13px;
+  color: rgb(70, 68, 68);
+}
+
+/*  is ka matlab ya hai ka 500 ki screen sa nicha jitna bi hai os ko apna hisab sa ker lo set */
+@media only screen and (max-width: 500px) {
+  /* .first-row {
+    height: 30vh;
+  } */
+  .company-dataa{
+    display: none;
+  }
+  .login-form {
+    /* background-color: white; */
+    margin-left: 10%;
+    margin-top: -70%;
+    border: 1px solid #1f2670;
+    width: 100%;
+    height: 45vh !important;
+    box-shadow: 0px 0px 5px 0px #1f2670;
+  }
+  .label-login{
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    justify-content:left;
+    align-items: center;
+  }
+  .itc-data{
+    display: none;
+  }
+  .company-data{
+    display: none;
+  }
+  .first-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30%;
+  }
+  .umair-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    width: 10vh;
+  }
+  .itc-name{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  .company-logo,
+  .company-name,
+  .company-data {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .second-row {
+    height: 36vh;
+    /* background-color: #1f2670; */
+    background-color: #555b8b;
+  }
+  .iner-card {
+    width: 90%;
+    background-color: #555b8b;
+    margin-left: 8%;
+    box-shadow: 0px 0px 10px 0px white;
+  }
+
+  .AC-logo {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+  .technicial-logo {
+    display: none;
+    /* text-align: start;
+    justify-content: start;
+    display: flex; */
+  }
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ 
+  /* .login-formm {
+    margin-left: 10%;
+    border: 1px solid #1f2670;
+    width: 80%;
+    height: 25vh;
+  } */
+  .label {
+    text-align: left;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .company-name {
+    font-size: 17px;
+    align-items: end;
+    display: flex;
+    justify-content: start;
+  }
+}
+
+
+
+
+
+@media screen and (max-width: 1200px) {
+  .company-data {
+    align-items: end;
+    display: flex;
+    justify-content: start;
+    font-size: 9px;
+    color: rgb(90, 90, 90);
+  }
+  .label {
+    text-align: right;
+    font-size: 9px;
+  }
+}
+.second-row {
+  height: 22vh;
+  background-color: #1f2670;
+  /* background-color: #1f2670; */
+
+  border-top: 1px solid rgb(255, 105, 105);
+  border-bottom: 1px solid rgb(255, 105, 105);
+}
+.iner-card {
+  width: 50%;
+  background-color: #1f2670;
+  margin-left: 25%;
+  box-shadow: 0px 0px 10px 0px white;
+}
+
+.AC-logo {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.third-row {
+  height: 58vh;
+  padding: 2%;
+}
+
+.technicial-logo {
+  text-align: right;
+  margin-top: 1%;
+}
+.login-form {
+  border: 1px solid #1f2670;
+  width: 60%;
+  height: 25vh;
+  box-shadow: 0px 0px 10px 0px #1f2670;
+  background-color: #b2c2d1;
+}
+
+.label {
+  text-align: right;
+}
+
+
+
+

@@ -256,6 +256,25 @@ function Fee_Collection() {
   //       console.error("Error:", error);
   //     });
   // }
+  const [getperioddata, setperioddata] = useState([]);
+  const [perioddata, setPerioddata] = useState([]);
+  const [selectedPeriodId, setSelectedPeriodId] = useState("");
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${apiLinks}/PeriodList.php`);
+        const apiData = await response.json();
+        setPerioddata(apiData);
+        if (apiData.length > 0) {
+          setSelectedPeriodId(apiData[0].id);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -272,6 +291,7 @@ function Fee_Collection() {
         Remarks: Remarks.current.value,
         totalamount: gettotalcreditamount.replace(/,/g, ""),
         type: "FRV",
+        period: getperioddata,
 
         detail1: tableData.map((item) => ({
           id: item.id,
@@ -762,6 +782,7 @@ function Fee_Collection() {
         }
       });
   };
+
   const firstColWidth = "50px";
   const secondColWidth = "100px";
   const thirdColWidth = "300px";
@@ -958,6 +979,34 @@ function Fee_Collection() {
                           className="form-control-item"
                           value={formattedTime}
                         />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-sm-2"></div>
+                      <div className="col-sm-10">
+                        <Form.Group>
+                          <Form.Control
+                            as="select"
+                            name="custareid"
+                            onChange={(e) => {
+                              setperioddata(e.target.value);
+                            }}
+                            id="companyid"
+                            style={{
+                              height: "27px",
+                              fontSize: "11px",
+                              padding: "0px",
+                            }}
+                            className="form-control-company custom-select"
+                          >
+                            <option value="">Select Period</option>
+                            {perioddata.map((item) => (
+                              <option key={item.pdsc} value={item.pdsc}>
+                                {item.pdsc}
+                              </option>
+                            ))}
+                          </Form.Control>
+                        </Form.Group>
                       </div>
                     </div>
                   </div>
@@ -1234,7 +1283,7 @@ function Fee_Collection() {
                           length: Math.max(0, 10 - tableData.length),
                         }).map((_, index) => (
                           <tr key={`blank-${index}`}>
-                            {Array.from({ length: 5 }).map((_, colIndex) => (
+                            {Array.from({ length: 6 }).map((_, colIndex) => (
                               <td key={`blank-${index}-${colIndex}`}>&nbsp;</td>
                             ))}
                           </tr>

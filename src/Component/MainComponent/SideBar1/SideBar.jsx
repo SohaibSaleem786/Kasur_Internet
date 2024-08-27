@@ -123,6 +123,7 @@ const SideBar1 = () => {
     "3-01-00": "/Customer_Ledger",
     "3-02-00": "/Daily_Cash_Book",
     "3-03-00": "/Closed_Customer",
+    "3-04-00": "/MonthlyRecovryReport",
 
     "4-03-00": "/Get_User",
 

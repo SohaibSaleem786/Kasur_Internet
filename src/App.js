@@ -35,6 +35,7 @@ import UserManagement1 from "./Component/Utilities/User_Management1/UserManageme
 import MenuUser from "./Component/Utilities/User_Management1/MenuUser/MenuUser";
 import EditUser from "./Component/Utilities/User_Management1/Edit_User/Edit_User";
 import AddUser1 from "./Component/Utilities/User_Management1/Add_User1/AddUser1";
+import MonthlyRecovryReport from "./Component/Reports/Monthly_Recovery_Report/Monthly_Recovery_Report";
 function App() {
   return (
     <>
@@ -185,6 +186,11 @@ function App() {
                   exact
                   path="/Closed_Customer"
                   element={<Closed_Customer />}
+                ></Route>
+                <Route
+                  exact
+                  path="/MonthlyRecovryReport"
+                  element={<MonthlyRecovryReport />}
                 ></Route>
                 {/* //////////////////////////////// /////////////////////////////// */}
                 {/* /////////////////////////////////////////////////////////////// */}

@@ -117,7 +117,7 @@ const Paid_PaymentList = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://crystalsolutions.com.pk/cablenet/admin/PeriodList.php`
+          `https://crystalsolutions.com.pk/kasurinternet/web/admin/PeriodList.php`
         );
         const apiData = await response.json();
         setPerioddata(apiData);

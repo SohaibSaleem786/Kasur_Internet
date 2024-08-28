@@ -106,7 +106,8 @@ export default function MonthlyRecovryReport() {
         console.log(response, "lsdfjsdlkfsfjskl");
 
         setIsLoading(false);
-        setTableData(response.data);
+        setTableData(response.data.detail);
+        setTotalAmt(response.data.total);
 
         // console.log(response.data["Total Qnty  "]);
 
@@ -116,7 +117,7 @@ export default function MonthlyRecovryReport() {
         setTotalCredit(response.data["Total Credit"]);
         setClosingBalance(response.data["Closing Bal "]);
 
-        setTotalAmt(response.data["Total Amount "]);
+        // setTotalAmt(response.data["Total Amount "]);
 
         // Check if response.data is an object and has keys
         if (
@@ -460,7 +461,7 @@ export default function MonthlyRecovryReport() {
     handlePagination();
 
     // Save the PDF file
-    doc.save("MobileLedger.pdf");
+    doc.save("MonthlyRecoveryReport.pdf");
 
     const pdfBlob = doc.output("blob");
     const pdfFile = new File([pdfBlob], "table_data.pdf", {
@@ -574,7 +575,7 @@ export default function MonthlyRecovryReport() {
     const blob = new Blob([buffer], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });
-    saveAs(blob, "MobileLedger.xlsx");
+    saveAs(blob, "MonthlyRecoveryReport.xlsx");
   };
 
   const handleSelectChangeSearch = (e) => {

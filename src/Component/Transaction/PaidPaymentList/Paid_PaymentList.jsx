@@ -91,7 +91,7 @@ export default function Paid_PaymentList() {
 
   const formattedFromDate = format(selectedDateFrom, "dd-MM-yyyy");
   const formattedToDate = format(selectedDateTo, "dd-MM-yyyy");
-
+  const [getLength1, setLength] = useState(0);
   function fetchMobileLedger() {
     const apiUrl =
       "https://crystalsolutions.com.pk/kasurinternet/web/admin/PaidPaymentList.php";
@@ -104,8 +104,8 @@ export default function Paid_PaymentList() {
     axios
       .post(apiUrl, formData)
       .then((response) => {
-        console.log(response, "lsdfjsdlkfsfjskl");
-
+        console.log(response.data.length, "sdfsdfs");
+        setLength(response.data.length);
         setIsLoading(false);
         setTableData(response.data);
         // setTotalAmt(response.data);
@@ -950,8 +950,8 @@ export default function Paid_PaymentList() {
             >
               <input
                 type="text"
-                // value={}
-                className="text-end border-dark"
+                value={getLength1}
+                className="text-center border-dark"
                 disabled
                 style={{
                   ...firstColWidth,

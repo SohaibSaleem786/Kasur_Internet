@@ -91,6 +91,7 @@ export default function Status_Tracking() {
 
   const formattedFromDate = format(selectedDateFrom, "dd-MM-yyyy");
   const formattedToDate = format(selectedDateTo, "dd-MM-yyyy");
+  const [getLength1, setLength] = useState(0);
 
   function fetchMobileLedger() {
     const apiUrl =
@@ -105,6 +106,7 @@ export default function Status_Tracking() {
       .post(apiUrl, formData)
       .then((response) => {
         console.log(response, "lsdfjsdlkfsfjskl");
+        setLength(response.data.length);
 
         setIsLoading(false);
         setTableData(response.data);
@@ -950,7 +952,7 @@ export default function Status_Tracking() {
             >
               <input
                 type="text"
-                // value={}
+                value={getLength1}
                 className="text-end border-dark"
                 disabled
                 style={{

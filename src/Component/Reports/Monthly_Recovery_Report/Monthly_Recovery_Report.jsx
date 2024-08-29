@@ -90,7 +90,7 @@ export default function MonthlyRecovryReport() {
 
   const formattedFromDate = format(selectedDateFrom, "dd-MM-yyyy");
   const formattedToDate = format(selectedDateTo, "dd-MM-yyyy");
-
+  const [getlength1, setLength1] = useState(0);
   function fetchMobileLedger() {
     const apiUrl =
       "https://crystalsolutions.com.pk/kasurinternet/web/admin/MonthlyRecovryReport.php";
@@ -103,11 +103,15 @@ export default function MonthlyRecovryReport() {
     axios
       .post(apiUrl, formData)
       .then((response) => {
-        console.log(response, "lsdfjsdlkfsfjskl");
+        console.log(response.data.detail.length, "lsdfjsdlkfsfjskl");
 
         setIsLoading(false);
+
         setTableData(response.data.detail);
+        console.log("lenght==========", response);
+
         setTotalAmt(response.data.total);
+        setLength1(response.data.detail.length);
 
         // console.log(response.data["Total Qnty  "]);
 
@@ -938,7 +942,7 @@ export default function MonthlyRecovryReport() {
             >
               <input
                 type="text"
-                // value={}
+                value={getlength1}
                 className="text-end border-dark"
                 disabled
                 style={{

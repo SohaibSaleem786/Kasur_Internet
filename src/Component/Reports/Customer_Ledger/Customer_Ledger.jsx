@@ -875,7 +875,7 @@ export default function Customer_Ledger() {
                       {Array.from({ length: Math.max(0, 30 - 3) }).map(
                         (_, rowIndex) => (
                           <tr key={`blank-${rowIndex}`}>
-                            {Array.from({ length: 6 }).map((_, colIndex) => (
+                            {Array.from({ length: 7 }).map((_, colIndex) => (
                               <td key={`blank-${rowIndex}-${colIndex}`}>
                                 &nbsp;
                               </td>
@@ -940,7 +940,7 @@ export default function Customer_Ledger() {
                         length: Math.max(0, 27 - getFilteredTableData().length),
                       }).map((_, rowIndex) => (
                         <tr key={`blank-${rowIndex}`}>
-                          {Array.from({ length: 6 }).map((_, colIndex) => (
+                          {Array.from({ length: 7 }).map((_, colIndex) => (
                             <td key={`blank-${rowIndex}-${colIndex}`}>
                               &nbsp;
                             </td>

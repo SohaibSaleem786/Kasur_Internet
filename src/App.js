@@ -36,6 +36,7 @@ import MenuUser from "./Component/Utilities/User_Management1/MenuUser/MenuUser";
 import EditUser from "./Component/Utilities/User_Management1/Edit_User/Edit_User";
 import AddUser1 from "./Component/Utilities/User_Management1/Add_User1/AddUser1";
 import MonthlyRecovryReport from "./Component/Reports/Monthly_Recovery_Report/Monthly_Recovery_Report";
+import Recovery_Pending_Report from "./Component/Reports/Recovery_Pending_Report/Recovery_Pending_Report";
 function App() {
   return (
     <>
@@ -191,6 +192,11 @@ function App() {
                   exact
                   path="/MonthlyRecovryReport"
                   element={<MonthlyRecovryReport />}
+                ></Route>
+                <Route
+                  exact
+                  path="/MonthlyPendingReport"
+                  element={<Recovery_Pending_Report />}
                 ></Route>
                 {/* //////////////////////////////// /////////////////////////////// */}
                 {/* /////////////////////////////////////////////////////////////// */}

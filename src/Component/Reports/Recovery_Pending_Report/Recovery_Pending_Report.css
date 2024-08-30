@@ -1,0 +1,22 @@
+#ContainerStylingRecoveryPendingReportLedger {
+  width: 60%;
+}
+
+@media (max-width: 1260px) {
+  #ContainerStylingRecoveryPendingReportLedger {
+    width: 55% !important;
+    margin: 5% auto !important;
+  }
+}
+@media (max-width: 1060px) {
+  #ContainerStylingRecoveryPendingReportLedger {
+    width: 85% !important;
+    margin: 5% auto !important;
+  }
+}
+@media (max-width: 700px) {
+  #ContainerStylingRecoveryPendingReportLedger {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+}

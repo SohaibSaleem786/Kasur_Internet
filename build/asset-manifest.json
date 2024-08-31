@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/kasurinternet/static/css/main.112d2d9f.css",
-    "main.js": "/kasurinternet/static/js/main.8f10702e.js",
+    "main.css": "/kasurinternet/static/css/main.1a855834.css",
+    "main.js": "/kasurinternet/static/js/main.c1d35df2.js",
     "static/js/498.c0385572.chunk.js": "/kasurinternet/static/js/498.c0385572.chunk.js",
     "static/js/703.4917bfd6.chunk.js": "/kasurinternet/static/js/703.4917bfd6.chunk.js",
     "static/js/513.c93c3959.chunk.js": "/kasurinternet/static/js/513.c93c3959.chunk.js",
@@ -19,14 +19,14 @@
     "static/media/bin.png": "/kasurinternet/static/media/bin.c4f0af28c10a19fbeee1.png",
     "static/media/logowithname.jpeg": "/kasurinternet/static/media/logowithname.e831a235b42a41bf1b0c.jpeg",
     "index.html": "/kasurinternet/index.html",
-    "main.112d2d9f.css.map": "/kasurinternet/static/css/main.112d2d9f.css.map",
-    "main.8f10702e.js.map": "/kasurinternet/static/js/main.8f10702e.js.map",
+    "main.1a855834.css.map": "/kasurinternet/static/css/main.1a855834.css.map",
+    "main.c1d35df2.js.map": "/kasurinternet/static/js/main.c1d35df2.js.map",
     "498.c0385572.chunk.js.map": "/kasurinternet/static/js/498.c0385572.chunk.js.map",
     "703.4917bfd6.chunk.js.map": "/kasurinternet/static/js/703.4917bfd6.chunk.js.map",
     "513.c93c3959.chunk.js.map": "/kasurinternet/static/js/513.c93c3959.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.112d2d9f.css",
-    "static/js/main.8f10702e.js"
+    "static/css/main.1a855834.css",
+    "static/js/main.c1d35df2.js"
   ]
 }

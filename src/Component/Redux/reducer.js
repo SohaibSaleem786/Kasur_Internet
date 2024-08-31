@@ -81,7 +81,10 @@ const cashaccountReducer = (
     case FETCH_CASHACCOUNT_REQUEST:
       return { ...state, loading: true, error: null };
     case FETCH_CASHACCOUNT_SUCCESS:
-      console.log("Received cashaccountReducer in reducer:", action.payload);
+      console.log(
+        "cashaccountReducer cashaccountReducer in reducer:",
+        action.payload
+      );
       return { ...state, loading: false, data: action.payload, error: null };
     case FETCH_CASHACCOUNT_FAILURE:
       return { ...state, loading: false, error: action.payload };

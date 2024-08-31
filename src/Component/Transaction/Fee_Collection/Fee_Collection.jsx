@@ -28,7 +28,7 @@ import Bin from "../../../image/bin.png";
 function Fee_Collection() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const datalistCollector = useSelector((state) => state.cashAccountList);
+  const datalistCollector = useSelector((state) => state.collectorList);
   const datalistCustomer = useSelector((state) => state.customerList);
   // const datalistAccount = [];
   useEffect(() => {
@@ -41,7 +41,7 @@ function Fee_Collection() {
       datalistCustomer.data && datalistCustomer.data
     );
     dispatch(fetchCustomer());
-    dispatch(fetchCashAccount());
+    dispatch(fetchCollector());
   }, [dispatch]);
   // useEffect(() => {
   //   dispatch(fetchItem());
@@ -140,7 +140,7 @@ function Fee_Collection() {
         datalistCustomer.data &&
         datalistCustomer.data.find((item) => item.tacccod === formattedValue);
       if (selectedItem) {
-        setaccountdescription(selectedItem.taccdsc);
+        setaccountdescription(selectedItem.collector);
         console.log("selectedItem", selectedItem);
       } else {
         console.log("No matching item found");
@@ -302,7 +302,7 @@ function Fee_Collection() {
         })),
       };
       const response = await axios.post(
-        `https://crystalsolutions.com.pk/kasurinternet/web/admin/FeeReceiveVoucher.php`,
+        `https://crystalsolutions.com.pk/kasurcable/web/admin/FeeReceiveVoucher.php`,
         JSON.stringify(responsedata),
         {
           headers: { "Content-Type": "application/json" },
@@ -452,7 +452,7 @@ function Fee_Collection() {
     if (datalistCollector.data && Array.isArray(datalistCollector.data)) {
       const transformedData = datalistCollector.data.map((item) => ({
         titmcod: item.titmcod,
-        titmdsc: item.titmdsc,
+        collector: item.collector,
         tpurrat: item.tpurrat,
         tsalrat: item.tsalrat,
         tatPersentage: item.tatPersentage,
@@ -560,7 +560,7 @@ function Fee_Collection() {
     setModalOpen(false);
 
     setaccountcode(rowData.acc_code);
-    setaccountdescription(rowData.accDsc);
+    setaccountdescription(rowData.collector);
 
     calculateTotals();
   };
@@ -639,7 +639,7 @@ function Fee_Collection() {
           updatedTableData[rowIndex] = {
             ...updatedTableData[rowIndex],
             name: selectedItem.titmcod,
-            Description: selectedItem.titmdsc,
+            Description: selectedItem.collector,
           };
         } else {
           updatedTableData[rowIndex] = {
@@ -672,8 +672,8 @@ function Fee_Collection() {
       (row) =>
         (row.acc_code &&
           row.acc_code.toLowerCase().includes(searchText.toLowerCase())) ||
-        (row.accDsc &&
-          row.accDsc.toLowerCase().includes(searchText.toLowerCase()))
+        (row.collector &&
+          row.collector.toLowerCase().includes(searchText.toLowerCase()))
     );
   const filteredRowsAccount =
     datalistCustomer.data &&
@@ -1693,7 +1693,7 @@ function Fee_Collection() {
                                       {row.acc_code}
                                     </td>
                                     <td style={{ textAlign: "left" }}>
-                                      {row.accDsc}
+                                      {row.collector}
                                     </td>
                                   </tr>
                                 ))}

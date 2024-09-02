@@ -209,6 +209,7 @@ function Update_Customer() {
       formData.append("residance", user.custhome);
       formData.append("pakge", user.custconnpkg);
       formData.append("speed", user.custconnspd);
+      formData.append("payDate", user.custpaydat);
       formData.append("status", user.custsts);
       formData.append("collector", user.col_cod);
       formData.append("area", user.custareid);
@@ -427,9 +428,7 @@ function Update_Customer() {
                         <Form.Control
                           as="select"
                           name="custareid"
-                          onChange={(e) => {
-                            setSelectedAreaId(e.target.value);
-                          }}
+                          onChange={handleInputChange}
                           onKeyDown={(e) => handleEnterKeyPress(Mobile, e)}
                           ref={Area}
                           value={user.custareid}
@@ -508,7 +507,6 @@ function Update_Customer() {
                         onKeyDown={(e) => handleEnterKeyPress(CableFee, e)}
                       />
                     </div>
-                   
                   </div>
                   <div className="row">
                     <div className="col-sm-2 company-field">Package:</div>

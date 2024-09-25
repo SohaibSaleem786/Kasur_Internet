@@ -22,13 +22,13 @@ import { useTheme } from "../../../ThemeContext";
 import {
   fetchCustomer,
   fetchCollector,
-  fetchCashAccount,
+  fetchAccount,
 } from "../../Redux/action";
 import Bin from "../../../image/bin.png";
 function Fee_Collection() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const datalistCollector = useSelector((state) => state.collectorList);
+  const datalistCollector = useSelector((state) => state.AccountCodeList);
   const datalistCustomer = useSelector((state) => state.customerList);
   // const datalistAccount = [];
   useEffect(() => {
@@ -41,7 +41,8 @@ function Fee_Collection() {
       datalistCustomer.data && datalistCustomer.data
     );
     dispatch(fetchCustomer());
-    dispatch(fetchCollector());
+    // dispatch(fetchCollector());
+    dispatch(fetchAccount());
   }, [dispatch]);
   // useEffect(() => {
   //   dispatch(fetchItem());
@@ -302,7 +303,7 @@ function Fee_Collection() {
         })),
       };
       const response = await axios.post(
-        `https://crystalsolutions.com.pk/kasurcable/web/admin/FeeReceiveVoucher.php`,
+        `https://crystalsolutions.com.pk/kasurinternet/web/admin/FeeReceiveVoucher.php`,
         JSON.stringify(responsedata),
         {
           headers: { "Content-Type": "application/json" },
@@ -310,7 +311,7 @@ function Fee_Collection() {
       );
 
       console.log("===========================================");
-      console.log(response);
+      console.log(responsedata);
 
       console.log("===========================================");
 
@@ -452,7 +453,7 @@ function Fee_Collection() {
     if (datalistCollector.data && Array.isArray(datalistCollector.data)) {
       const transformedData = datalistCollector.data.map((item) => ({
         titmcod: item.titmcod,
-        collector: item.collector,
+        collector: item.accDsc,
         tpurrat: item.tpurrat,
         tsalrat: item.tsalrat,
         tatPersentage: item.tatPersentage,
@@ -560,7 +561,7 @@ function Fee_Collection() {
     setModalOpen(false);
 
     setaccountcode(rowData.acc_code);
-    setaccountdescription(rowData.collector);
+    setaccountdescription(rowData.accDsc);
 
     calculateTotals();
   };
@@ -639,7 +640,7 @@ function Fee_Collection() {
           updatedTableData[rowIndex] = {
             ...updatedTableData[rowIndex],
             name: selectedItem.titmcod,
-            Description: selectedItem.collector,
+            Description: selectedItem.accDsc,
           };
         } else {
           updatedTableData[rowIndex] = {
@@ -672,8 +673,8 @@ function Fee_Collection() {
       (row) =>
         (row.acc_code &&
           row.acc_code.toLowerCase().includes(searchText.toLowerCase())) ||
-        (row.collector &&
-          row.collector.toLowerCase().includes(searchText.toLowerCase()))
+        (row.accDsc &&
+          row.accDsc.toLowerCase().includes(searchText.toLowerCase()))
     );
   const filteredRowsAccount =
     datalistCustomer.data &&
@@ -1693,7 +1694,7 @@ function Fee_Collection() {
                                       {row.acc_code}
                                     </td>
                                     <td style={{ textAlign: "left" }}>
-                                      {row.collector}
+                                      {row.accDsc}
                                     </td>
                                   </tr>
                                 ))}

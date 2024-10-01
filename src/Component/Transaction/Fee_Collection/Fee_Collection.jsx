@@ -257,7 +257,7 @@ function Fee_Collection() {
   //       console.error("Error:", error);
   //     });
   // }
-  const [getperioddata, setperioddata] = useState([]);
+  const [getperioddata, setperioddata] = useState("");
   const [perioddata, setPerioddata] = useState([]);
   const [selectedPeriodId, setSelectedPeriodId] = useState("");
   useEffect(() => {
@@ -279,12 +279,30 @@ function Fee_Collection() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      // Prepare the data to be sent in the request
-      const responsedata = {
-        // period: ,
-        // saleid: nextItemId,
+    // Validation checks
+    const checks = [
+      {
+        value: getperioddata,
+        message: "Please select a Period",
+      },
+    ];
 
+    for (const check of checks) {
+      if (!check.value) {
+        setAlertData({
+          type: "error",
+          message: check.message,
+        });
+        setTimeout(() => {
+          setAlertData(null);
+        }, 3000);
+        return; // Stop further execution if validation fails
+      }
+    }
+
+    try {
+      // Prepare data for the API request
+      const responsedata = {
         Invoice: nextItemId,
         date: dateFormate,
         accountcode: CustomerCode.current.value,
@@ -293,7 +311,6 @@ function Fee_Collection() {
         totalamount: gettotalcreditamount.replace(/,/g, ""),
         type: "FRV",
         period: getperioddata,
-
         detail1: tableData.map((item) => ({
           id: item.id,
           amount: item.credit.replace(/,/g, ""),
@@ -302,68 +319,37 @@ function Fee_Collection() {
           remarks: item.remarks,
         })),
       };
+      console.log(responsedata, "sdf");
+      // Make the API request
       const response = await axios.post(
         `https://crystalsolutions.com.pk/kasurinternet/web/admin/FeeReceiveVoucher.php`,
-        JSON.stringify(responsedata),
+        responsedata,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
 
-      console.log("===========================================");
-      console.log(responsedata);
-
-      console.log("===========================================");
-
+      // Handle API response
       if (response.data.error === 200) {
         fetchData();
-        setTableData([
-          {
-            name: "",
-            Description: "",
-            remarks: "",
-            credit: "",
-          },
-        ]);
-        setaccountcode("");
-        setaccountdescription("");
-        setfcstnam("");
-        setftrnrem("");
-        setfmobnum("");
-        setfadd001("");
-        setfadd002("");
-        setfnicnum("");
-        setDateFormate(defaultFromDate);
-        setfntnnum("");
-
-        setfstnnum("");
+        setTableData([{ name: "", Description: "", remarks: "", credit: "" }]);
         setTotalCreditAmount(0);
-        setTotalAmount(0);
-
-        // navigate("/MainPage");
-        console.log(response.data.message);
-        setAlertData({
-          type: "success",
-          message: `${response.data.message}`,
-        });
-        setTimeout(() => {
-          setAlertData(null);
-        }, 1000);
+        setAlertData({ type: "success", message: `${response.data.message}` });
       } else {
-        console.log(response.data.message);
-        setAlertData({
-          type: "error",
-          message: `${response.data.message}`,
-        });
-        setTimeout(() => {
-          setAlertData(null);
-        }, 2000);
+        setAlertData({ type: "error", message: `${response.data.message}` });
       }
     } catch (error) {
       console.error("Error:", error);
-    } finally {
+      if (error.response) {
+        console.error("Server Error Response:", error.response.data);
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+      } else {
+        console.error("Request setup error:", error.message);
+      }
     }
   };
+
   // useEffect(() => {
 
   //   const intervalId = setInterval(calculateTotals, 1000);
@@ -1671,33 +1657,39 @@ function Fee_Collection() {
                           ) : (
                             <>
                               {filteredRows &&
-                                filteredRows.map((row, rowIndex) => (
-                                  <tr
-                                    key={rowIndex}
-                                    onClick={() =>
-                                      handleRowClick(row, rowIndex)
-                                    }
-                                    style={{
-                                      backgroundColor:
-                                        getcolor === row.acc_code
-                                          ? "#444ebd"
-                                          : "",
-                                      color:
-                                        getcolor === row.acc_code
-                                          ? secondaryColor
-                                          : "",
-                                      fontWeight:
-                                        getcolor === row.acc_code ? "bold" : "",
-                                    }}
-                                  >
-                                    <td style={{ width: "25%" }}>
-                                      {row.acc_code}
-                                    </td>
-                                    <td style={{ textAlign: "left" }}>
-                                      {row.accDsc}
-                                    </td>
-                                  </tr>
-                                ))}
+                                filteredRows
+                                  .filter((row) =>
+                                    row.acc_code.startsWith("12-")
+                                  )
+                                  .map((row, rowIndex) => (
+                                    <tr
+                                      key={rowIndex}
+                                      onClick={() =>
+                                        handleRowClick(row, rowIndex)
+                                      }
+                                      style={{
+                                        backgroundColor:
+                                          getcolor === row.acc_code
+                                            ? "#444ebd"
+                                            : "",
+                                        color:
+                                          getcolor === row.acc_code
+                                            ? secondaryColor
+                                            : "",
+                                        fontWeight:
+                                          getcolor === row.acc_code
+                                            ? "bold"
+                                            : "",
+                                      }}
+                                    >
+                                      <td style={{ width: "25%" }}>
+                                        {row.acc_code}
+                                      </td>
+                                      <td style={{ textAlign: "left" }}>
+                                        {row.accDsc}
+                                      </td>
+                                    </tr>
+                                  ))}
                               {Array.from({
                                 length: Math.max(
                                   0,

@@ -127,11 +127,11 @@ const accountReducer = (
 
 const rootReducer = combineReducers({
   item: menuReducer,
-  itemlist: itemReducer,
-  AccountCodeList: accountReducer,
-  collectorList: collectorReducer,
-  customerList: customerReducer,
-  cashAccountList: cashaccountReducer,
+  itemlist: itemReducer, // item
+  AccountCodeList: accountReducer, // account
+  collectorList: collectorReducer, // collector
+  customerList: customerReducer, // customer
+  cashAccountList: cashaccountReducer, // chart of account
 });
 
 export default rootReducer;

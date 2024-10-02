@@ -103,11 +103,12 @@ export default function MonthlyRecovryReport() {
     axios
       .post(apiUrl, formData)
       .then((response) => {
-        console.log(response.data.detail.length, "lsdfjsdlkfsfjskl");
+        setTableData(response.data.detail);
+
+        console.log(response.data, "lsdfjsdlkfsfjskl");
 
         setIsLoading(false);
 
-        setTableData(response.data.detail);
         console.log("lenght==========", response);
 
         setTotalAmt(response.data.total);
@@ -175,10 +176,10 @@ export default function MonthlyRecovryReport() {
 
     // Define table data (rows)
     const rows = tableData.map((item) => [
-      item.date,
-      item.code,
-      item.name,
-      item.amount,
+      item.ttrndat,
+      item.acc_code,
+      item.custnam,
+      item.tcrtamt,
     ]);
 
     // Add summary row to the table
@@ -538,7 +539,12 @@ export default function MonthlyRecovryReport() {
 
     // Add data rows
     tableData.forEach((item) => {
-      worksheet.addRow([item.date, item.code, item.name, item.amount]);
+      worksheet.addRow([
+        item.ttrndat,
+        item.acc_code,
+        item.custnam,
+        item.tcrtamt,
+      ]);
     });
 
     // Add total row and bold it
@@ -896,16 +902,16 @@ export default function MonthlyRecovryReport() {
                             }}
                           >
                             <td className="text-start" style={firstColWidth}>
-                              {item.date}
+                              {item.ttrndat}
                             </td>
                             <td className="text-end" style={secondColWidth}>
-                              {item.code}
+                              {item.acc_code}
                             </td>
                             <td className="text-start" style={thirdColWidth}>
-                              {item.name}
+                              {item.custnam}
                             </td>
                             <td className="text-end" style={forthColWidth}>
-                              {item.amount}
+                              {item.tcrtamt}
                             </td>
                           </tr>
                         );

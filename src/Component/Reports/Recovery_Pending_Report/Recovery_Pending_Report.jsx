@@ -95,7 +95,7 @@ export default function Recovery_Pending_Report() {
 
   function fetchMobileLedger() {
     const apiUrl =
-      "https://crystalsolutions.com.pk/kasurinternet/web/admin/NotPaidCustomer.php";
+      "https://crystalsolutions.com.pk/kasurinternet/web/admin/PendingPaymentList.php";
     setIsLoading(true);
 
     const formData = new URLSearchParams({
@@ -105,12 +105,12 @@ export default function Recovery_Pending_Report() {
     axios
       .post(apiUrl, formData)
       .then((response) => {
-        console.log(response, "lsdfjsdlkfsfjskl");
-        setLength(response.data.detail.length);
+        console.log(response.data, "lsdfjsdlkfsfjskl");
+        setLength(response.data.length);
 
         setIsLoading(false);
-        setTableData(response.data.detail);
-        setTotalAmt(response.data.total);
+        setTableData(response.data);
+        setTotalAmt(response.data);
 
         // console.log(response.data["Total Qnty  "]);
 
@@ -881,35 +881,37 @@ export default function Recovery_Pending_Report() {
                     </>
                   ) : (
                     <>
-                      {tableData.map((item, i) => {
-                        totalEnteries += 1;
-                        return (
-                          <tr
-                            key={i}
-                            ref={(el) => (rowRefs.current[i] = el)} // Assign ref to each row
-                            onClick={() => handleRowClick(i)}
-                            style={{
-                              backgroundColor:
-                                selectedIndex === i ? "#ADD8E6" : "",
-                              // fontWeight: selectedIndex === i ? "bold" : "",
-                              fontSize: "12px !important",
-                            }}
-                          >
-                            <td className="text-center" style={firstColWidth}>
-                              {item.tacccod}
-                            </td>
-                            <td className="text-end" style={secondColWidth}>
-                              {item.custmob}
-                            </td>
-                            <td className="text-start" style={thirdColWidth}>
-                              {item.custnam}
-                            </td>
-                            <td className="text-end" style={forthColWidth}>
-                              {item.balance}
-                            </td>
-                          </tr>
-                        );
-                      })}
+                      {tableData
+                        .filter((row) => row.tacccod.startsWith("21-"))
+                        .map((item, i) => {
+                          totalEnteries += 1;
+                          return (
+                            <tr
+                              key={i}
+                              ref={(el) => (rowRefs.current[i] = el)} // Assign ref to each row
+                              onClick={() => handleRowClick(i)}
+                              style={{
+                                backgroundColor:
+                                  selectedIndex === i ? "#ADD8E6" : "",
+                                // fontWeight: selectedIndex === i ? "bold" : "",
+                                fontSize: "12px !important",
+                              }}
+                            >
+                              <td className="text-center" style={firstColWidth}>
+                                {item.tacccod}
+                              </td>
+                              <td className="text-end" style={secondColWidth}>
+                                {item.custmob}
+                              </td>
+                              <td className="text-start" style={thirdColWidth}>
+                                {item.custnam}
+                              </td>
+                              <td className="text-end" style={forthColWidth}>
+                                {item.balance}
+                              </td>
+                            </tr>
+                          );
+                        })}
                       {Array.from({
                         length: Math.max(0, 27 - tableData.length),
                       }).map((_, rowIndex) => (

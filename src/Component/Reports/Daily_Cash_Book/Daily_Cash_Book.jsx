@@ -874,7 +874,7 @@ export default function Daily_Cash_Book() {
                                     className="text-end"
                                     style={firstColWidth}
                                   >
-                                    {receiveItem.tdbtamt || ""}
+                                    {receiveItem.tcrtamt || ""}
                                   </td>
                                   <td
                                     className="text-start"
@@ -886,7 +886,7 @@ export default function Daily_Cash_Book() {
                                     className="text-end"
                                     style={firstColWidth}
                                   >
-                                    {paymentItem.tcrtamt || ""}
+                                    {paymentItem.tdbtamt || ""}
                                   </td>
                                 </tr>
                               );

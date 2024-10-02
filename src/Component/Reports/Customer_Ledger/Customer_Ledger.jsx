@@ -70,6 +70,7 @@ export default function Customer_Ledger() {
     axios
       .post(apiUrl, formData)
       .then((response) => {
+        console.log(response.data);
         setTableData(response.data);
         setIsLoading(false);
       })
@@ -103,6 +104,7 @@ export default function Customer_Ledger() {
       String(item.ttrndat),
       String(item.ttrnnum + " " + item.ttrntyp),
       String(item.ttrndsc),
+      String(item.MB),
       String(item.tdbtamt),
       String(item.tcrtamt),
       String(item.balance),
@@ -836,7 +838,14 @@ export default function Customer_Ledger() {
                       Description{" "}
                       {/* <i className="fa-solid fa-caret-down caretIconStyle"></i> */}
                     </td>
-
+                    <td
+                      className="border-dark"
+                      style={forthColWidth}
+                      // onClick={() => handleSorting("tdbtamt")}
+                    >
+                      MB's{" "}
+                      {/* <i className="fa-solid fa-caret-down caretIconStyle"></i> */}
+                    </td>
                     <td
                       className="border-dark"
                       style={forthColWidth}
@@ -875,7 +884,7 @@ export default function Customer_Ledger() {
                       {Array.from({ length: Math.max(0, 30 - 3) }).map(
                         (_, rowIndex) => (
                           <tr key={`blank-${rowIndex}`}>
-                            {Array.from({ length: 7 }).map((_, colIndex) => (
+                            {Array.from({ length: 8 }).map((_, colIndex) => (
                               <td key={`blank-${rowIndex}-${colIndex}`}>
                                 &nbsp;
                               </td>
@@ -916,7 +925,9 @@ export default function Customer_Ledger() {
                               {item.ttrndat}
                             </td>
                             <td className="text-start" style={firstColWidth}>
-                              {item.ttrntyp}
+                              {item.ttrntyp
+                                ? `${item.ttrntyp} ${item.ttrnnum || "  "}`
+                                : ""}
                             </td>
                             <td className="text-start" style={secondColWidth}>
                               {item.ttrntyp}
@@ -924,11 +935,14 @@ export default function Customer_Ledger() {
                             <td className="text-start" style={thirdColWidth}>
                               {item.ttrndsc}
                             </td>
-                            <td className="text-end" style={forthColWidth}>
-                              {item.tdbtamt}
+                            <td className="text-start" style={forthColWidth}>
+                              {item.ttrndsc}
                             </td>
                             <td className="text-end" style={forthColWidth}>
-                              {item.tcrtamt}
+                              {item.debit}
+                            </td>
+                            <td className="text-end" style={forthColWidth}>
+                              {item.credit}
                             </td>
                             <td className="text-end" style={forthColWidth}>
                               {item.balance}
@@ -1005,7 +1019,7 @@ export default function Customer_Ledger() {
                 disabled
                 style={{
                   // ...thirdColWidth,
-                  width: "42.2%",
+                  width: "30.2%",
                   height: "24px",
                   backgroundColor: textColor,
                   fontWeight: "bold",
@@ -1013,7 +1027,20 @@ export default function Customer_Ledger() {
               />
               <input
                 type="text"
-                value={totalDebit.toLocaleString()}
+                // value={totalEnteries}
+                className="text-center border-dark"
+                disabled
+                style={{
+                  // ...thirdColWidth,
+                  width: "12.2%",
+                  height: "24px",
+                  backgroundColor: textColor,
+                  fontWeight: "bold",
+                }}
+              />
+              <input
+                type="text"
+                // value={totalDebit.toLocaleString()}
                 className="text-end border-dark"
                 disabled
                 style={{
@@ -1026,7 +1053,7 @@ export default function Customer_Ledger() {
               />
               <input
                 type="text"
-                value={totalCredit.toLocaleString()}
+                // value={totalCredit.toLocaleString()}
                 className="text-end border-dark"
                 disabled
                 style={{

@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/kasurinternet/static/css/main.1a855834.css",
-    "main.js": "/kasurinternet/static/js/main.8c615add.js",
+    "main.css": "/kasurinternet/static/css/main.edc643ca.css",
+    "main.js": "/kasurinternet/static/js/main.43d69fb2.js",
     "static/js/498.c0385572.chunk.js": "/kasurinternet/static/js/498.c0385572.chunk.js",
     "static/js/703.4917bfd6.chunk.js": "/kasurinternet/static/js/703.4917bfd6.chunk.js",
-    "static/js/513.c93c3959.chunk.js": "/kasurinternet/static/js/513.c93c3959.chunk.js",
+    "static/js/513.0704ca40.chunk.js": "/kasurinternet/static/js/513.0704ca40.chunk.js",
     "static/media/image1.jpeg": "/kasurinternet/static/media/image1.041fad63a45bd19bc5a4.jpeg",
     "static/media/image3.jpeg": "/kasurinternet/static/media/image3.442f653bf6bfc4f33d0a.jpeg",
     "static/media/metal.jpg": "/kasurinternet/static/media/metal.49f05fd5f339fd3400e9.jpg",
@@ -19,14 +19,14 @@
     "static/media/bin.png": "/kasurinternet/static/media/bin.c4f0af28c10a19fbeee1.png",
     "static/media/logowithname.jpeg": "/kasurinternet/static/media/logowithname.e831a235b42a41bf1b0c.jpeg",
     "index.html": "/kasurinternet/index.html",
-    "main.1a855834.css.map": "/kasurinternet/static/css/main.1a855834.css.map",
-    "main.8c615add.js.map": "/kasurinternet/static/js/main.8c615add.js.map",
+    "main.edc643ca.css.map": "/kasurinternet/static/css/main.edc643ca.css.map",
+    "main.43d69fb2.js.map": "/kasurinternet/static/js/main.43d69fb2.js.map",
     "498.c0385572.chunk.js.map": "/kasurinternet/static/js/498.c0385572.chunk.js.map",
     "703.4917bfd6.chunk.js.map": "/kasurinternet/static/js/703.4917bfd6.chunk.js.map",
-    "513.c93c3959.chunk.js.map": "/kasurinternet/static/js/513.c93c3959.chunk.js.map"
+    "513.0704ca40.chunk.js.map": "/kasurinternet/static/js/513.0704ca40.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1a855834.css",
-    "static/js/main.8c615add.js"
+    "static/css/main.edc643ca.css",
+    "static/js/main.43d69fb2.js"
   ]
 }

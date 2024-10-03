@@ -877,7 +877,7 @@ export default function Customer_Ledger() {
                   {isLoading ? (
                     <>
                       <tr>
-                        <td colSpan="6" className="text-center">
+                        <td colSpan="8" className="text-center">
                           <Spinner animation="border" variant="primary" />
                         </td>
                       </tr>
@@ -954,7 +954,7 @@ export default function Customer_Ledger() {
                         length: Math.max(0, 27 - getFilteredTableData().length),
                       }).map((_, rowIndex) => (
                         <tr key={`blank-${rowIndex}`}>
-                          {Array.from({ length: 7 }).map((_, colIndex) => (
+                          {Array.from({ length: 8 }).map((_, colIndex) => (
                             <td key={`blank-${rowIndex}-${colIndex}`}>
                               &nbsp;
                             </td>

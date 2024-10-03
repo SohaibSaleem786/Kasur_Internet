@@ -1141,7 +1141,7 @@ function Fee_Collection() {
                             >
                               <input
                                 type="text"
-                                name="Desctiption"
+                                name="Description"
                                 // placeholder="Description"
                                 value={rowData.Description}
                                 onChange={(e) => handleInputChange1(e, index)}

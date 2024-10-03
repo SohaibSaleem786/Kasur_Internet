@@ -1001,7 +1001,7 @@ function Cash_Receipt_Voucher() {
                             >
                               <input
                                 type="text"
-                                name="Desctiption"
+                                name="Description"
                                 // placeholder="Description"
                                 value={rowData.Description}
                                 onChange={(e) => handleInputChange1(e, index)}

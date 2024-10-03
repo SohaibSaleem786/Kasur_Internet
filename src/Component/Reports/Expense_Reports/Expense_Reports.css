@@ -1,0 +1,211 @@
+* {
+  font-family: "Verdana", sans-serif;
+}
+
+body {
+  background-color: #f6f8fa;
+  font-family: Verdana !important;
+  font-size: 12px;
+}
+
+::placeholder {
+  margin-right: 2px;
+}
+
+.sidemenu {
+  min-height: 100vh;
+}
+
+a:-webkit-any-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.errorMessage {
+  color: red;
+  text-align: center;
+  margin: 0;
+}
+
+Link {
+  text-decoration: none;
+}
+
+.caretIconStyle:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.crossBtn {
+  margin: 10px 5px 0 0;
+}
+
+.crossBtn:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.topBtn {
+  margin: 10px 0 0 5px;
+}
+
+.topBtn:hover {
+  cursor: pointer;
+  color: red;
+}
+
+#table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+input:focus {
+  /* border: none; */
+  outline: none;
+  padding: 0 5px;
+}
+input {
+  padding: 0 5px;
+}
+/* Reports Start  */
+
+/*---------------------- Daily Reports Started -------------------------------*/
+
+.reportBtn {
+  width: 75px;
+  height: 25px;
+  background-color: #3368b5;
+  color: #fff;
+}
+
+.reportBtn:hover {
+  background-color: #c6daf7;
+  color: #000;
+}
+
+th {
+  /* background-color: var(--accent-color) !important; */
+  border: 1px solid rgb(223, 223, 223) !important;
+  color: var(--primary-color) !important;
+  text-align: center !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  color: black !important;
+  /* width: 1px !important; */
+  white-space: nowrap !important;
+  padding: 0px 0px !important;
+  position: sticky !important;
+  z-index: 999 !important;
+  /* background-color: #1f2670 !important; */
+}
+
+.custom-header {
+  padding: 8px;
+  /* Adjust as needed */
+  margin: 0;
+}
+
+.table-col-style {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+td {
+  padding: 0px 0px !important;
+  font-size: 12px !important;
+  border: 1px solid rgb(223, 223, 223) !important;
+  text-align: center;
+  font-family: Verdana !important;
+  height: 20px !important;
+}
+
+tr.selected-row td {
+  background-color: lightblue !important;
+  font-weight: bold !important;
+}
+
+thead {
+  position: sticky !important;
+  background-color: rgb(235, 135, 64) !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.List-select-class {
+  font-size: 10px !important;
+  padding-left: 5px !important;
+}
+
+/*-----------Ended------Styling Related to React Select-------------------*/
+
+/*-----------Started------Styling Files-------------------*/
+
+.btnMaintenance {
+  margin: 2px 0;
+  background-color: #ff7e39;
+  color: black;
+  font-weight: bold;
+  --bs-btn-padding-y: 0.02rem;
+  --bs-btn-border-color: none;
+  --bs-border-radius: 0rem;
+}
+
+#ContainerStylingExpenseReport {
+  width: 60%;
+}
+
+@media (max-width: 1260px) {
+  #ContainerStylingExpenseReport {
+    width: 55% !important;
+    margin: 5% auto !important;
+  }
+}
+@media (max-width: 1060px) {
+  #ContainerStylingExpenseReport {
+    width: 85% !important;
+    margin: 5% auto !important;
+  }
+}
+@media (max-width: 700px) {
+  #ContainerStylingExpenseReport {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+}
+/* Modal Header */
+.modal-header-custom {
+  background-color: #3368b5;
+  color: #fff;
+}
+
+/* Modal Title */
+.modal-header-custom .modal-title {
+  font-size: 16px;
+}
+
+/* Form Control */
+.form-control-custom {
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* Label Item */
+.label-item {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Custom Dropdown */
+.react-select__control {
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 20px;
+}

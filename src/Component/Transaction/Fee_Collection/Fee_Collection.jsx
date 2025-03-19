@@ -335,8 +335,14 @@ function Fee_Collection() {
         setTableData([{ name: "", Description: "", remarks: "", credit: "" }]);
         setTotalCreditAmount(0);
         setAlertData({ type: "success", message: `${response.data.message}` });
+        setTimeout(() => {
+          setAlertData(null);
+        }, 300);
       } else {
         setAlertData({ type: "error", message: `${response.data.message}` });
+        setTimeout(() => {
+          setAlertData(null);
+        }, 300);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -704,6 +710,8 @@ function Fee_Collection() {
           setaccountdescription(matchedItem.accdsc);
           setDateFormate(matchedItem.ttrndat);
           setftrnrem(matchedItem.ttrnrem);
+          setperioddata(matchedItem.period);
+
           // setfmobnum(matchedItem.fmobnum);
           // setfadd001(matchedItem.fadd001);
           // setfadd002(matchedItem.fadd002);
@@ -776,6 +784,150 @@ function Fee_Collection() {
   const fourthColWidth = "150px";
   const fifthColWidth = "120px";
   const sixthcolWidth = "50px";
+  const Return = useRef(null);
+  const Clear = useRef(null);
+
+  const handlePrint = () => {
+    const printContent = `
+      <div style="padding: 20px; font-family: Arial, sans-serif;">
+        <div style="text-align: center; border-bottom: 2px solid black; margin-bottom: 20px;">
+          <h1 style="margin: 0; font-size: 24px;">KASUR INTERNET</h1>
+          <p style="font-size: 12px; margin: 0;">Date: ${dateFormate}</p>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+          <p style="font-size: 14px; font-weight: bold;">Account Details</p>
+          <p style="margin: 0;"><strong>Account Code:</strong> ${getaccountcode}</p>
+          <p style="margin: 0;"><strong>Account Description:</strong> ${getaccountdescription}</p>
+          <p style="margin: 0;"><strong>Remarks:</strong> ${getftrnrem}</p>
+          <p style="margin: 0;"><strong>Total Credit Amount:</strong> ${gettotalcreditamount.toLocaleString(
+            undefined,
+            { minimumFractionDigits: 2 }
+          )}</p>
+        </div>
+  
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+          <thead>
+            <tr style="background-color: #f0f0f0;">
+              <th style="padding: 8px; border: 1px solid black; text-align: left;">Sr#</th>
+              <th style="padding: 8px; border: 1px solid black; text-align: left;">Code</th>
+              <th style="padding: 8px; border: 1px solid black; text-align: left;">Description</th>
+              <th style="padding: 8px; border: 1px solid black; text-align: right;">Credit Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tableData
+              .map(
+                (row, index) => `
+                <tr>
+                  <td style="padding: 8px; border: 1px solid black;">${
+                    index + 1
+                  }</td>
+                  <td style="padding: 8px; border: 1px solid black;">${
+                    row.name
+                  }</td>
+                  <td style="padding: 8px; border: 1px solid black;">${
+                    row.Description
+                  }</td>
+                  <td style="padding: 8px; border: 1px solid black; text-align: right;">${
+                    row.credit
+                  }</td>
+                </tr>`
+              )
+              .join("")}
+          </tbody>
+          <tfoot>
+            <tr style="font-weight: bold;">
+              <td colspan="3" style="padding: 8px; border: 1px solid black; text-align: right;">Total</td>
+              <td style="padding: 8px; border: 1px solid black; text-align: right;">${gettotalcreditamount.toLocaleString(
+                undefined,
+                { minimumFractionDigits: 2 }
+              )}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    `;
+
+    const iframe = document.createElement("iframe");
+    iframe.style.position = "absolute";
+    iframe.style.width = "0px";
+    iframe.style.height = "0px";
+    iframe.style.border = "none";
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <html>
+        <head>
+          <title>Print</title>
+          <style>
+            @media print {
+              body {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+              }
+            }
+          </style>
+        </head>
+        <body>${printContent}</body>
+      </html>
+    `);
+    doc.close();
+
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    // Clean up the iframe after printing
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+    }, 1000);
+  };
+
+  const handleFocus = (codeparam) => {
+    if (codeparam.current) {
+      codeparam.current.style.backgroundColor = "orange";
+    }
+  };
+
+  const handleBlur = (codeparam) => {
+    if (codeparam.current) {
+      codeparam.current.style.backgroundColor = "#3368B5";
+    }
+  };
+  const handleBlurRVC = (e) => {
+    // Convert nextItemId to string before calling padStart
+    const value = String(nextItemId).padStart(6, "0");
+    setNextItemId(value);
+    console.log("value", value);
+    setTimeout(() => {
+      // handleInputChangefetchdatafunction(value);
+    }, 500);
+  };
+
+  const handleSave = () => {
+    handleFormSubmit();
+  };
+  const handleClear = () => {
+    setaccountcode("");
+    setaccountdescription("");
+    setftrnrem("");
+
+    setTableData([
+      {
+        id: "",
+        name: "",
+        Description: "",
+        credit: "",
+      },
+    ]);
+    SaleNo.current.focus();
+  };
+  const handleReturn = () => {
+    navigate("/MainPage");
+  };
   return (
     <>
       <div
@@ -974,11 +1126,12 @@ function Fee_Collection() {
                         <Form.Group>
                           <Form.Control
                             as="select"
-                            name="custareid"
+                            name="getperioddata"
+                            value={getperioddata}
                             onChange={(e) => {
                               setperioddata(e.target.value);
                             }}
-                            id="companyid"
+                            id="getperioddata"
                             style={{
                               height: "27px",
                               fontSize: "11px",
@@ -1714,6 +1867,137 @@ function Fee_Collection() {
                   </Modal>
                 </div>
               </Form>
+              <br />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  marginBottom: "2px",
+                  borderTop: "1px solid gray ",
+                }}
+              >
+                <button
+                  style={{
+                    border: "1px solid #FFFFFF",
+                    width: "75px",
+                    height: "25px",
+                    marginTop: "2px",
+                    color: "white",
+                    backgroundColor: "#3368B5",
+                  }}
+                  onFocus={() => handleFocus(Submit)}
+                  onBlur={() => handleBlur(Submit)}
+                  accessKey="s"
+                  onKeyDown={(event) => {
+                    if (event.altKey && event.key === "s") {
+                      handleSave();
+                      event.preventDefault();
+                    } else if (event.key === "ArrowRight") {
+                      Return.current.focus();
+                      event.preventDefault();
+                    }
+                  }}
+                  onClick={handleFormSubmit}
+                  ref={Submit}
+                >
+                  Save
+                </button>
+
+                <button
+                  style={{
+                    border: "1px solid #FFFFFF",
+                    width: "75px",
+                    marginLeft: "2px",
+                    height: "25px",
+                    marginTop: "2px",
+                    color: "white",
+
+                    backgroundColor: "#3368B5",
+                  }}
+                  accessKey="r"
+                  onKeyDown={(event) => {
+                    if (event.altKey && event.key === "r") {
+                      handleReturn();
+                      event.preventDefault();
+                    } else if (event.key === "ArrowRight") {
+                      Clear.current.focus();
+                      event.preventDefault();
+                    } else if (event.key === "ArrowLeft") {
+                      Submit.current.focus();
+                      event.preventDefault();
+                    }
+                  }}
+                  onFocus={() => handleFocus(Return)}
+                  onBlur={() => handleBlur(Return)}
+                  ref={Return}
+                  onClick={handleReturn}
+                >
+                  Return
+                </button>
+                <button
+                  style={{
+                    border: "1px solid #FFFFFF",
+                    width: "75px",
+                    marginLeft: "2px",
+                    height: "25px",
+                    marginTop: "2px",
+                    color: "white",
+
+                    backgroundColor: "#3368B5",
+                  }}
+                  accessKey="c"
+                  onKeyDown={(event) => {
+                    if (event.altKey && event.key === "c") {
+                      handleClear();
+                      event.preventDefault();
+                    } else if (event.key === "ArrowLeft") {
+                      Return.current.focus();
+                      event.preventDefault();
+                    } else if (event.key === "ArrowRight") {
+                      Submit.current.focus();
+                      event.preventDefault();
+                    }
+                  }}
+                  ref={Clear}
+                  onFocus={() => handleFocus(Clear)}
+                  onBlur={() => handleBlur(Clear)}
+                  onClick={handleClear}
+                >
+                  Clear
+                </button>
+                <button
+                  style={{
+                    border: "1px solid #FFFFFF",
+                    width: "75px",
+                    marginLeft: "2px",
+                    height: "25px",
+                    marginTop: "2px",
+                    color: "white",
+
+                    backgroundColor: "#3368B5",
+                  }}
+                  accessKey="c"
+                  onKeyDown={(event) => {
+                    if (event.altKey && event.key === "c") {
+                      handleClear();
+                      event.preventDefault();
+                    } else if (event.key === "ArrowLeft") {
+                      Return.current.focus();
+                      event.preventDefault();
+                    } else if (event.key === "ArrowRight") {
+                      Submit.current.focus();
+                      event.preventDefault();
+                    }
+                  }}
+                  ref={Clear}
+                  onFocus={() => handleFocus(Clear)}
+                  onBlur={() => handleBlur(Clear)}
+                  onClick={handlePrint}
+                >
+                  Print
+                </button>
+              </div>
             </div>
           </div>
           <br />

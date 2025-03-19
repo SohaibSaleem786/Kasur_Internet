@@ -39,6 +39,7 @@ import MonthlyRecovryReport from "./Component/Reports/Monthly_Recovery_Report/Mo
 import Recovery_Pending_Report from "./Component/Reports/Recovery_Pending_Report/Recovery_Pending_Report";
 import Expense_Reports from "./Component/Reports/Expense_Reports/Expense_Reports";
 import Profit_Reports from "./Component/Reports/Profit_Reports/Profit_Reports";
+import MonthlyRecovryReportPeriodWise from "./Component/Reports/Monthly_Recovery_Report_Periodwise/Monthly_Recovery_Report_Period";
 function App() {
   return (
     <>
@@ -209,6 +210,11 @@ function App() {
                   exact
                   path="/ProfitReport"
                   element={<Profit_Reports />}
+                ></Route>
+                <Route
+                  exact
+                  path="/MonthlyRecovryReportPeriod"
+                  element={<MonthlyRecovryReportPeriodWise />}
                 ></Route>
                 {/* //////////////////////////////// /////////////////////////////// */}
                 {/* /////////////////////////////////////////////////////////////// */}

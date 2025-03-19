@@ -128,6 +128,7 @@ const SideBar1 = () => {
     "3-06-00": "/ProfitReport",
 
     "3-07-00": "/ExpenseReport",
+    "3-08-00": "/MonthlyRecovryReportPeriod",
 
     "4-03-00": "/Get_User",
 

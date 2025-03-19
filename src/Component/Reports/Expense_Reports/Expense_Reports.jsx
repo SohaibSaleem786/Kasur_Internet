@@ -787,11 +787,107 @@ export default function Expense_Reports() {
   useHotkeys("esc", () => navigate("/sidebar"));
   const filteredRows = (tableData || []).filter((row) => {
     const hasValidName =
-      row.Technician &&
-      row.Technician.toLowerCase().includes(selectedOptionSearch.toLowerCase());
+      row.ttrnnum &&
+      row.ttrnnum.toLowerCase().includes(selectedOptionSearch.toLowerCase());
 
     return selectedOptionSearch === "" || hasValidName;
   });
+  const handlePrint = () => {
+    const printContent = `
+      <div style="padding: 20px; font-family: Arial, sans-serif;">
+        <div style="text-align: center; border-bottom: 2px solid black; margin-bottom: 20px;">
+          <h1 style="margin: 0; font-size: 24px;">KASUR INTERNET</h1>
+          <h2 style="margin: 0; font-size: 18px;">EXPENSE REPORT</h2>
+        </div>
+  
+        <!-- Date Section -->
+        <div style="margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <div>
+              <strong>From:</strong> ${
+                selectedDateFrom ? selectedDateFrom.toLocaleDateString() : "N/A"
+              }
+            </div>
+            <div>
+              <strong>To:</strong> ${
+                selectedDateTo ? selectedDateTo.toLocaleDateString() : "N/A"
+              }
+            </div>
+          </div>
+        </div>
+  
+        <!-- Table Section -->
+        <div style="overflow: hidden;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+            <thead style="background-color: ${tableHeadColor}; font-weight: bold;">
+              <tr>
+                <th style="border: 1px solid black; padding: 5px; color: white;">Date</th>
+                <th style="border: 1px solid black; padding: 5px; color: white;">Job#</th>
+                <th style="border: 1px solid black; padding: 5px; color: white;">Description</th>
+                <th style="border: 1px solid black; padding: 5px; color: white;">Type</th>
+                <th style="border: 1px solid black; padding: 5px; color: white;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filteredRows
+                .map(
+                  (item) => `
+                <tr>
+                  <td style="border: 1px solid black; padding: 5px; text-align: center;">${
+                    item.date || ""
+                  }</td>
+                  <td style="border: 1px solid black; padding: 5px; text-align: center;">${
+                    item.ttrnnum || ""
+                  }</td>
+                  <td style="border: 1px solid black; padding: 5px; text-align: start;">${
+                    item.ttrndsc || ""
+                  }</td>
+                  <td style="border: 1px solid black; padding: 5px; text-align: center;">${
+                    item.ttrntyp || ""
+                  }</td>
+                  <td style="border: 1px solid black; padding: 5px; text-align: end;">${
+                    item.amount || ""
+                  }</td>
+                </tr>
+              `
+                )
+                .join("")}
+            </tbody>
+          </table>
+        </div>
+  
+        <!-- Footer Section -->
+        <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+          <div><strong>Total Amount:</strong> ${totalAmt || "N/A"}</div>
+        </div>
+      </div>
+    `;
+
+    // Create an invisible iframe
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <html>
+        <head><title>Print Document</title></head>
+        <body>${printContent}</body>
+      </html>
+    `);
+    doc.close();
+
+    // Print the content of the iframe
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    // Remove the iframe after printing
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+    }, 1000);
+  };
+
   return (
     <>
       <Header />
@@ -1076,7 +1172,7 @@ export default function Expense_Reports() {
               />
               <input
                 type="text"
-                // value={totalAmt}
+                value={totalAmt}
                 className="text-end border-dark"
                 disabled
                 style={{
@@ -1099,6 +1195,9 @@ export default function Expense_Reports() {
         </button>{" "}
         <button className="reportBtn" onClick={exportCSVHandler}>
           Excel
+        </button>{" "}
+        <button className="reportBtn" onClick={handlePrint}>
+          Print
         </button>{" "}
         <button className="reportBtn" onClick={fetchDailyDocumentEditItems}>
           Select

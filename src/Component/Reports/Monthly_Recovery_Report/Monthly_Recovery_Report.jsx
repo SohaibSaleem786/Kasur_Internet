@@ -733,7 +733,91 @@ export default function MonthlyRecovryReport() {
   useHotkeys("p", exportPDFHandler);
   useHotkeys("e", handleDownloadCSV);
   useHotkeys("esc", () => navigate("/sidebar"));
+  const handlePrint = () => {
+    const printContent = `
+      <div style="padding: 20px; font-family: Arial, sans-serif;">
+        <div style="text-align: center; border-bottom: 2px solid black; margin-bottom: 20px;">
+          <h1 style="margin: 0; font-size: 24px;">KASUR INTERNET</h1>
+          <h2 style="margin: 0; font-size: 18px;">MONTHLY RECOVERY REPORT</h2>
+        </div>
 
+        <!-- Date Section -->
+        <div style="margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <div>
+              <strong>Period:</strong> ${gettheperiodstatus || "N/A"}
+            </div>
+     
+          </div>
+        </div>
+
+        <!-- Table Section -->
+        <div style="overflow: hidden;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+            <thead style="background-color: #f0f0f0; font-weight: bold;">
+              <tr>
+                <th style="border: 1px solid black; padding: 5px;">Date</th>
+                <th style="border: 1px solid black; padding: 5px;">Code</th>
+                <th style="border: 1px solid black; padding: 5px;">Customer</th>
+                <th style="border: 1px solid black; padding: 5px;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${tableData
+                .map(
+                  (item) => `
+                <tr>
+                  <td style="border: 1px solid black; padding: 5px;">${
+                    item.ttrndat || ""
+                  }</td>
+                  <td style="border: 1px solid black; padding: 5px;">${
+                    item.acc_code || ""
+                  }</td>
+                  <td style="border: 1px solid black; padding: 5px;">${
+                    item.custnam || ""
+                  }</td>
+                  <td style="border: 1px solid black; padding: 5px;">${
+                    item.tcrtamt || ""
+                  }</td>
+                </tr>
+              `
+                )
+                .join("")}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footer Section -->
+        <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+          <div><strong>Total Pay:</strong> ${totalAmt || 0}</div>
+        </div>
+      </div>
+    `;
+
+    // Create an invisible iframe
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <html>
+        <head><title>Print Document</title></head>
+        <body>${printContent}</body>
+      </html>
+    `);
+    doc.close();
+
+    // Print the content of the iframe
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    // Remove the iframe after printing
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+    }, 1000);
+  };
   return (
     <>
       <Header />
@@ -1009,6 +1093,10 @@ export default function MonthlyRecovryReport() {
         <button className="reportBtn" onClick={handleDownloadCSV}>
           Excel
         </button>{" "}
+        <button className="reportBtn" onClick={handlePrint}>
+          Print
+        </button>
+        {""}
         <button className="reportBtn" onClick={fetchMobileLedger}>
           Select
         </button>{" "}

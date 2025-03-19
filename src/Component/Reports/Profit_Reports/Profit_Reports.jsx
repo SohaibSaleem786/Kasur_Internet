@@ -785,6 +785,89 @@ export default function Profit_Reports() {
 
     return selectedOptionSearch === "" || hasValidName;
   });
+
+  const handlePrint = () => {
+    // Extracting the data from your filteredRows
+    const tableData = filteredRows.map((item) => ({
+      payment_cpv: item.payment_cpv || "",
+      payment_frv: item.payment_frv || "",
+      payment_crv: item.payment_crv || "",
+      period: item.period || "",
+      profit: item.profit || "",
+    }));
+
+    const totalAmt = tableData.reduce(
+      (sum, item) => sum + (parseFloat(item.profit) || 0),
+      0
+    ); // Calculate the total profit
+
+    const printContent = `
+      <div style="padding: 20px; font-family: Arial, sans-serif;">
+        <div style="text-align: center; border-bottom: 2px solid black; margin-bottom: 20px;">
+          <h1 style="margin: 0; font-size: 24px;">KASUR INTERNET</h1>
+          <h2 style="margin: 0; font-size: 18px;">PROFIT REPORT</h2>
+        </div>
+  
+        
+  
+        <div style="overflow: hidden;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+            <thead style="background-color: #f0f0f0; font-weight: bold;">
+              <tr>
+                <th style="border: 1px solid black; padding: 5px;">Payment Voucher</th>
+                <th style="border: 1px solid black; padding: 5px;">Fee Voucher</th>
+                <th style="border: 1px solid black; padding: 5px;">Receive Voucher</th>
+                <th style="border: 1px solid black; padding: 5px;">Period</th>
+                <th style="border: 1px solid black; padding: 5px;">Profit</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${tableData
+                .map(
+                  (item) => `
+                <tr>
+                  <td style="border: 1px solid black; padding: 5px;">${item.payment_cpv}</td>
+                  <td style="border: 1px solid black; padding: 5px;">${item.payment_frv}</td>
+                  <td style="border: 1px solid black; padding: 5px;">${item.payment_crv}</td>
+                  <td style="border: 1px solid black; padding: 5px;">${item.period}</td>
+                  <td style="border: 1px solid black; padding: 5px;">${item.profit}</td>
+                </tr>
+              `
+                )
+                .join("")}
+            </tbody>
+          </table>
+        </div>
+  
+      
+      </div>
+    `;
+
+    // Create an invisible iframe
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <html>
+        <head><title>Print Document</title></head>
+        <body>${printContent}</body>
+      </html>
+    `);
+    doc.close();
+
+    // Print the content of the iframe
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    // Remove the iframe after printing
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+    }, 1000);
+  };
+
   return (
     <>
       <Header />
@@ -1092,6 +1175,9 @@ export default function Profit_Reports() {
         </button>{" "}
         <button className="reportBtn" onClick={exportCSVHandler}>
           Excel
+        </button>{" "}
+        <button className="reportBtn" onClick={handlePrint}>
+          Print
         </button>{" "}
         <button className="reportBtn" onClick={fetchDailyDocumentEditItems}>
           Select

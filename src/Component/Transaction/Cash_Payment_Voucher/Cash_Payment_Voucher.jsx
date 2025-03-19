@@ -589,87 +589,6 @@ function Cash_Payment_Voucher() {
           row.accDsc.toLowerCase().includes(searchTextAccount.toLowerCase()))
     );
 
-  // const handleInputChangefetchdata = async (e) => {
-  //   const inputValue = e.target.value;
-  //   console.log("Input Value:", inputValue);
-  //   const paddedValue = inputValue.padStart(6, "0");
-  //   console.log("Padded Value:", paddedValue);
-  //   // alert(paddedValue);
-  //   setNextItemId(paddedValue);
-
-  //   const data = {
-  //     invNumber: paddedValue,
-  //     type: "CRV",
-  //   };
-  //   const formData = new URLSearchParams(data).toString();
-
-  //   axios
-  //     .post(
-  //       `https://crystalsolutions.com.pk/kasurcable/web/admin/InvoiceDetail.php`,
-  //       formData,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/x-www-form-urlencoded",
-  //         },
-  //       }
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data[0], "sdjklfjs");
-  //       const matchedItem = response.data[0];
-
-  //       if (matchedItem) {
-  //         setaccountcode(matchedItem.trefcod);
-  //         setaccountdescription(matchedItem.accdsc);
-  //         setftrnrem(matchedItem.ttrnrem);
-  //         setDateFormate(matchedItem.ttrndat);
-  //         // remove the , from the amount
-  //         setTotalCreditAmount(matchedItem.ttrntot.replace(/,/g, ""));
-  //         if (matchedItem.detail && matchedItem.detail.length > 0) {
-  //           const newTableData = matchedItem.detail.map((detail) => ({
-  //             id: detail.id,
-  //             name: detail.tacccod,
-  //             Description: detail.ttrndsc,
-
-  //             credit: detail.tcrtamt,
-  //           }));
-  //           setTableData(newTableData);
-  //           console.log("Matched Item:", matchedItem.ftrnrem);
-  //           console.log("New Table Data:", newTableData);
-  //         } else {
-  //           setTableData([
-  //             {
-  //               name: "",
-  //               Description: "",
-  //               // Purchase: "",
-  //               // Sale: "",
-  //               // Amount: "",
-  //               // MRP: "",
-  //               // Tax: "",
-  //               // TotalTax: "",
-  //               credit: "",
-  //             },
-  //           ]);
-  //         }
-  //       } else {
-  //         console.log("No matching item found");
-  //         setaccountcode("");
-  //         setaccountdescription("");
-  //         setftrnrem("");
-
-  //         setDateFormate(defaultFromDate);
-
-  //         setTotalCreditAmount(0);
-  //         setTableData([
-  //           {
-  //             name: "",
-  //             Description: "",
-
-  //             credit: "",
-  //           },
-  //         ]);
-  //       }
-  //     });
-  // };
   const handleInputChangefetchdata = async (e) => {
     const inputValue = e.target.value;
     console.log("Input Value:", inputValue);
@@ -764,6 +683,105 @@ function Cash_Payment_Voucher() {
         }
       });
   };
+  const handlePrint = () => {
+    const printContent = `
+      <div style="padding: 20px; font-family: Arial, sans-serif;">
+        <div style="text-align: center; border-bottom: 2px solid black; margin-bottom: 20px;">
+          <h1 style="margin: 0; font-size: 24px;">KASUR INTERNET</h1>
+          <p style="font-size: 12px; margin: 0;">Date: ${dateFormate}</p>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+          <p style="font-size: 14px; font-weight: bold;">Account Details</p>
+          <p style="margin: 0;"><strong>Account Code:</strong> ${getaccountcode}</p>
+          <p style="margin: 0;"><strong>Account Description:</strong> ${getaccountdescription}</p>
+          <p style="margin: 0;"><strong>Remarks:</strong> ${getftrnrem}</p>
+          <p style="margin: 0;"><strong>Total Credit Amount:</strong> ${gettotalcreditamount.toLocaleString(
+            undefined,
+            { minimumFractionDigits: 2 }
+          )}</p>
+        </div>
+  
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+          <thead>
+            <tr style="background-color: #f0f0f0;">
+              <th style="padding: 8px; border: 1px solid black; text-align: left;">Sr#</th>
+              <th style="padding: 8px; border: 1px solid black; text-align: left;">Code</th>
+              <th style="padding: 8px; border: 1px solid black; text-align: left;">Description</th>
+              <th style="padding: 8px; border: 1px solid black; text-align: right;">Credit Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tableData
+              .map(
+                (row, index) => `
+                <tr>
+                  <td style="padding: 8px; border: 1px solid black;">${
+                    index + 1
+                  }</td>
+                  <td style="padding: 8px; border: 1px solid black;">${
+                    row.name
+                  }</td>
+                  <td style="padding: 8px; border: 1px solid black;">${
+                    row.Description
+                  }</td>
+                  <td style="padding: 8px; border: 1px solid black; text-align: right;">${
+                    row.credit
+                  }</td>
+                </tr>`
+              )
+              .join("")}
+          </tbody>
+          <tfoot>
+            <tr style="font-weight: bold;">
+              <td colspan="3" style="padding: 8px; border: 1px solid black; text-align: right;">Total</td>
+              <td style="padding: 8px; border: 1px solid black; text-align: right;">${gettotalcreditamount.toLocaleString(
+                undefined,
+                { minimumFractionDigits: 2 }
+              )}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    `;
+
+    const iframe = document.createElement("iframe");
+    iframe.style.position = "absolute";
+    iframe.style.width = "0px";
+    iframe.style.height = "0px";
+    iframe.style.border = "none";
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <html>
+        <head>
+          <title>Print</title>
+          <style>
+            @media print {
+              body {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+              }
+            }
+          </style>
+        </head>
+        <body>${printContent}</body>
+      </html>
+    `);
+    doc.close();
+
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    // Clean up the iframe after printing
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+    }, 1000);
+  };
+
   const firstColWidth = "50px";
   const secondColWidth = "100px";
   const thirdColWidth = "350px";
@@ -1948,6 +1966,37 @@ function Cash_Payment_Voucher() {
                   onClick={handleClear}
                 >
                   Clear
+                </button>
+                <button
+                  style={{
+                    border: "1px solid #FFFFFF",
+                    width: "75px",
+                    marginLeft: "2px",
+                    height: "25px",
+                    marginTop: "2px",
+                    color: "white",
+
+                    backgroundColor: "#3368B5",
+                  }}
+                  accessKey="c"
+                  onKeyDown={(event) => {
+                    if (event.altKey && event.key === "c") {
+                      handleClear();
+                      event.preventDefault();
+                    } else if (event.key === "ArrowLeft") {
+                      Return.current.focus();
+                      event.preventDefault();
+                    } else if (event.key === "ArrowRight") {
+                      Submit.current.focus();
+                      event.preventDefault();
+                    }
+                  }}
+                  ref={Clear}
+                  onFocus={() => handleFocus(Clear)}
+                  onBlur={() => handleBlur(Clear)}
+                  onClick={handlePrint}
+                >
+                  Print
                 </button>
               </div>
             </div>

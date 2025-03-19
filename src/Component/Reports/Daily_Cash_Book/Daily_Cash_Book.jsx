@@ -626,6 +626,107 @@ export default function Daily_Cash_Book() {
   let totalDebit = 0;
   let totalCredit = 0;
   let totalBalance = 0;
+  const handlePrint = () => {
+    const printContent = `
+      <div style="padding: 20px; font-family: Arial, sans-serif;">
+        <div style="text-align: center; border-bottom: 2px solid black; margin-bottom: 20px;">
+          <h1 style="margin: 0; font-size: 24px;">KASUR INTERNET</h1>
+          <h2 style="margin: 0; font-size: 18px;">DAILY CASH BOOK</h2>
+        </div>
+
+        <!-- Date Section -->
+        <div style="margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <div>
+              <strong>Date From:</strong> ${selectedDateFrom || "N/A"}
+            </div>
+            <div>
+              <strong>Opening:</strong> ${response.opening || 0}
+            </div>
+          </div>
+        </div>
+
+        <!-- Table Section -->
+        <div style="overflow: hidden;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+            <thead style="background-color: #f0f0f0; font-weight: bold;">
+              <tr>
+                <th style="border: 1px solid black; padding: 5px;">Receive</th>
+                <th style="border: 1px solid black; padding: 5px;">Amount</th>
+                <th style="border: 1px solid black; padding: 5px;">Payment</th>
+                <th style="border: 1px solid black; padding: 5px;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${(() => {
+                const receiveData = getFilteredTableDatareceive() || [];
+                const paymentData = getFilteredTableData() || [];
+                const maxLength = Math.max(
+                  receiveData.length,
+                  paymentData.length
+                );
+
+                return Array.from({ length: maxLength })
+                  .map((_, i) => {
+                    const receiveItem = receiveData[i] || {};
+                    const paymentItem = paymentData[i] || {};
+                    return `
+                      <tr>
+                        <td style="border: 1px solid black; padding: 5px;">${
+                          receiveItem.ttrndsc || ""
+                        }</td>
+                        <td style="border: 1px solid black; padding: 5px;">${
+                          receiveItem.tcrtamt || ""
+                        }</td>
+                        <td style="border: 1px solid black; padding: 5px;">${
+                          paymentItem.ttrndsc || ""
+                        }</td>
+                        <td style="border: 1px solid black; padding: 5px;">${
+                          paymentItem.tdbtamt || ""
+                        }</td>
+                      </tr>`;
+                  })
+                  .join("");
+              })()}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footer Section -->
+        <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+          <div><strong>Closing Balance:</strong> ${response.closing || 0}</div>
+          <div><strong>Total Receive:</strong> ${
+            response.totalReceive || 0
+          }</div>
+          <div><strong>Total Pay:</strong> ${response.totalPay || 0}</div>
+        </div>
+      </div>
+    `;
+
+    // Create an invisible iframe
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <html>
+        <head><title>Print Document</title></head>
+        <body>${printContent}</body>
+      </html>
+    `);
+    doc.close();
+
+    // Print the content of the iframe
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    // Remove the iframe after printing
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+    }, 1000);
+  };
 
   return (
     <>
@@ -653,6 +754,12 @@ export default function Daily_Cash_Book() {
                 className="fa-solid fa-file-pdf fa-xl topBtn"
                 title="Download PDF"
                 onClick={exportPDFHandler}
+              ></i>
+              <i
+                style={{ color: "black" }}
+                onClick={handlePrint}
+                className="fa-solid fa-print fa-xl topBtn"
+                title="Print"
               ></i>
               {/* <i
 								className="fa fa-refresh fa-xl topBtn"

@@ -641,6 +641,115 @@ export default function Customer_Ledger() {
   let totalDebit = 0;
   let totalCredit = 0;
   let totalBalance = 0;
+  const handlePrint = () => {
+    const printContent = `
+      <div style="padding: 20px; font-family: Arial, sans-serif;">
+        <div style="text-align: center; border-bottom: 2px solid black; margin-bottom: 20px;">
+          <h1 style="margin: 0; font-size: 24px;">KASUR INTERNET</h1>
+          <h2 style="margin: 0; font-size: 18px;">CUSTOMER LEDGER</h2>
+        </div>
+  
+        <!-- Form Section -->
+        <div style="margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <div>
+              <strong>From:</strong> ${selectedDateFrom || "N/A"}
+            </div>
+            <div>
+              <strong>To:</strong> ${selectedDateTo || "N/A"}
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <div>
+              <strong>A/C:</strong> ${selectedOptionStatus || "N/A"}
+            </div>
+          </div>
+        </div>
+  
+        <!-- Table Section -->
+        <div style="overflow: hidden;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+            <thead style="background-color: #f0f0f0; font-weight: bold;">
+              <tr>
+                <th style="border: 1px solid black; padding: 5px;">Date</th>
+                <th style="border: 1px solid black; padding: 5px;">Number</th>
+                <th style="border: 1px solid black; padding: 5px;">Type</th>
+                <th style="border: 1px solid black; padding: 5px;">Description</th>
+                <th style="border: 1px solid black; padding: 5px;">Debit</th>
+                <th style="border: 1px solid black; padding: 5px;">Credit</th>
+                <th style="border: 1px solid black; padding: 5px;">Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${getFilteredTableData()
+                .map(
+                  (item) => `
+                  <tr>
+                    <td style="border: 1px solid black; padding: 5px;">${
+                      item.ttrndat
+                    }</td>
+                    <td style="border: 1px solid black; padding: 5px;">${
+                      item.ttrntyp
+                        ? `${item.ttrntyp} ${item.ttrnnum || " "}`
+                        : ""
+                    }</td>
+                    <td style="border: 1px solid black; padding: 5px;">${
+                      item.ttrntyp
+                    }</td>
+                    <td style="border: 1px solid black; padding: 5px;">${
+                      item.ttrndsc
+                    }</td>
+                    <td style="border: 1px solid black; padding: 5px;">${
+                      item.debit
+                    }</td>
+                    <td style="border: 1px solid black; padding: 5px;">${
+                      item.credit
+                    }</td>
+                    <td style="border: 1px solid black; padding: 5px;">${
+                      item.balance
+                    }</td>
+                  </tr>
+                `
+                )
+                .join("")}
+            </tbody>
+            <tfoot style="font-weight: bold; background-color: #f0f0f0;">
+              <tr>
+                <td colspan="4" style="border: 1px solid black; padding: 5px;">Totals</td>
+                <td style="border: 1px solid black; padding: 5px;">${totalDebit.toLocaleString()}</td>
+                <td style="border: 1px solid black; padding: 5px;">${totalCredit.toLocaleString()}</td>
+                <td style="border: 1px solid black; padding: 5px;">${totalBalance.toLocaleString()}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    `;
+
+    // Create an invisible iframe
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <html>
+        <head><title>Print Document</title></head>
+        <body>${printContent}</body>
+      </html>
+    `);
+    doc.close();
+
+    // Print the content of the iframe
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    // Remove the iframe after printing
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+    }, 1000);
+  };
 
   return (
     <>
@@ -668,6 +777,13 @@ export default function Customer_Ledger() {
                 className="fa-solid fa-file-pdf fa-xl topBtn"
                 title="Download PDF"
                 onClick={exportPDFHandler}
+              ></i>
+
+              <i
+                style={{ color: "black" }}
+                onClick={handlePrint}
+                className="fa-solid fa-print fa-xl topBtn"
+                title="Print"
               ></i>
               {/* <i
 								className="fa fa-refresh fa-xl topBtn"
@@ -936,7 +1052,7 @@ export default function Customer_Ledger() {
                               {item.ttrndsc}
                             </td>
                             <td className="text-start" style={forthColWidth}>
-                              {item.ttrndsc}
+                              {/* {item.ttrndsc} */}
                             </td>
                             <td className="text-end" style={forthColWidth}>
                               {item.debit}
